@@ -1,0 +1,111 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: banking-postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - banking-network
+
+  account-postgres:
+    image: postgres:15
+    container_name: account-postgres
+    environment:
+      POSTGRES_DB: accountdb
+      POSTGRES_USER: account_user
+      POSTGRES_PASSWORD: account123
+    ports:
+      - "5433:5432"
+    volumes:
+      - account_postgres_data:/var/lib/postgresql/data
+    networks:
+      - banking-network
+
+  transaction-postgres:
+    image: postgres:15
+    container_name: transaction-postgres
+    environment:
+      POSTGRES_DB: transactiondb
+      POSTGRES_USER: transaction_user
+      POSTGRES_PASSWORD: transaction123
+    ports:
+      - "5434:5432"
+    volumes:
+      - transaction_postgres_data:/var/lib/postgresql/data
+    networks:
+      - banking-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: banking-keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak123
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 8180
+    ports:
+      - "8180:8180"
+    depends_on:
+      - postgres
+    command: start-dev
+    networks:
+      - banking-network
+
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: banking-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - banking-network
+
+  logstash:
+    image: logstash:8.11.0
+    container_name: banking-logstash
+    ports:
+      - "5000:5000"
+    environment:
+      - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - elasticsearch
+    networks:
+      - banking-network
+
+  kibana:
+    image: kibana:8.11.0
+    container_name: banking-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - banking-network
+
+volumes:
+  postgres_data:
+  account_postgres_data:
+  transaction_postgres_data:
+  elasticsearch_data:
+
+networks:
+  banking-network:
+    driver: bridge

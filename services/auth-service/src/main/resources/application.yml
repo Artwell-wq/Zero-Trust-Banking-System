@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-service
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: banking-gateway
+            client-secret: LOL1QPRDoeV2aFzTIVc1B11OoQ5SZclJ
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/BankingSystem
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/BankingSystem
+
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: account-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/accounts/**
+          filters:
+            - TokenRelay
+        - id: transaction-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/transactions/**
+          filters:
+            - TokenRelay

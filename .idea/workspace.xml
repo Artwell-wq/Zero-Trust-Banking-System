@@ -4,32 +4,162 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3dceecfd-369e-48e9-a7a8-f6c47bad2017" name="Changes" comment="" />
+    <list default="true" id="3dceecfd-369e-48e9-a7a8-f6c47bad2017" name="Changes" comment="Initial monorepo structure for Zero‑Trust Banking System">
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/AuditService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/DataInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/JwtRolesConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking/security/account/WebClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/account-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/auth-service/src/main/java/com/banking/security/auth/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/auth-service/src/main/java/com/banking/security/auth/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/auth-service/src/main/java/com/banking/security/auth/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/AuditService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/JwtRolesConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/TransactionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/TransactionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/TransactionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/transaction-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/account-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/account-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/account-service/src/main/java/com/banking_security/account_service/AccountServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/account-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/services/account-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/account-service/src/test/java/com/banking_security/account_service/AccountServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/auth-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/auth-service/src/main/java/com/banking_security/auth_service/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/auth-service/src/main/java/com/banking/security/auth/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/auth-service/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/auth-service/src/test/java/com/banking_security/auth_service/AuthServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/auth-service/src/test/java/com/banking/security/auth/AuthServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/transaction-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/transaction-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking_security/transaction_service/TransactionServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/transaction-service/src/main/java/com/banking/security/transaction/TransactionServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/transaction-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/services/transaction-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/transaction-service/src/test/java/com/banking_security/transaction_service/TransactionServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/transaction-service/src/test/java/com/banking/security/transaction/TransactionServiceApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Artwell-wq&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Artwell-wq/Zero-Trust-Banking-System.git&quot;,
+    &quot;accountId&quot;: &quot;a69cc625-bf6c-4272-b018-1da2ae2e3cc3&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="3CESVPgwNkaW676bRb2ofD3zwr7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/lenovo/Documents/Zero-Trust-Banking-System"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AccountServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TransactionServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lenovo/Documents/Zero-Trust-Banking-System/services/transaction-service/pom.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager" selected="Application.TransactionServiceApplication">
+    <configuration name="AccountServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.banking.security.account.AccountServiceApplication" />
+      <module name="account-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.banking.security.account.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.banking.security.auth.AuthServiceApplication" />
+      <module name="auth-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.banking.security.auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransactionServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.banking.security.transaction.TransactionServiceApplication" />
+      <module name="transaction-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.banking.security.transaction.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Zero-Trust-Banking-System" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Zero-Trust-Banking-System" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TransactionServiceApplication" />
+        <item itemvalue="Application.AccountServiceApplication" />
+        <item itemvalue="Application.AuthServiceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -39,6 +169,30 @@
       <option name="presentableId" value="Default" />
       <updated>1775949258499</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial monorepo structure for Zero‑Trust Banking System">
+      <option name="closed" value="true" />
+      <created>1775974114369</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1775974114369</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial monorepo structure for Zero‑Trust Banking System" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial monorepo structure for Zero‑Trust Banking System" />
   </component>
 </project>
