@@ -22,3 +22,5 @@ logstash/data/
 *.jks
 *.key
 logstash.conf
+logs/
+*.log
