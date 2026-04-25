@@ -20,28 +20,45 @@
 
 	<dependencies>
 
-		<!-- API Gateway — THE critical dependency -->
+		<!-- API Gateway -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 
-		<!-- OAuth2 Client — handles login with Keycloak -->
+		<!-- OAuth2 Client — handles Keycloak login -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
 
-		<!-- OAuth2 Resource Server — validates JWT tokens -->
+		<!-- OAuth2 Resource Server — REACTIVE version for WebFlux -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
 		</dependency>
 
-		<!-- Actuator — health monitoring -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
+		<!-- Netty SSL -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+		</dependency>
+
+		<!-- Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- Needed for KeyManagerFactory and SSL -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
 		</dependency>
 
 		<!-- Testing -->
@@ -53,7 +70,6 @@
 
 	</dependencies>
 
-	<!-- Spring Cloud Version Manager -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -71,6 +87,29 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- CycloneDX SBOM Generator -->
+			<plugin>
+				<groupId>org.cyclonedx</groupId>
+				<artifactId>cyclonedx-maven-plugin</artifactId>
+				<version>2.7.9</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>makeAggregateBom</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<projectType>application</projectType>
+					<schemaVersion>1.4</schemaVersion>
+					<includeBomSerialNumber>true</includeBomSerialNumber>
+					<includeCompileScope>true</includeCompileScope>
+					<includeTestScope>false</includeTestScope>
+					<includeRuntimeScope>true</includeRuntimeScope>
+					<outputName>account-service-sbom</outputName>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -88,6 +88,29 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- CycloneDX SBOM Generator -->
+			<plugin>
+				<groupId>org.cyclonedx</groupId>
+				<artifactId>cyclonedx-maven-plugin</artifactId>
+				<version>2.7.9</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>makeAggregateBom</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<projectType>application</projectType>
+					<schemaVersion>1.4</schemaVersion>
+					<includeBomSerialNumber>true</includeBomSerialNumber>
+					<includeCompileScope>true</includeCompileScope>
+					<includeTestScope>false</includeTestScope>
+					<includeRuntimeScope>true</includeRuntimeScope>
+					<outputName>account-service-sbom</outputName>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

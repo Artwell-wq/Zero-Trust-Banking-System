@@ -37,56 +37,80 @@ public class TransactionController {
         double amount = Double.parseDouble(
                 request.get("amount").toString());
 
-        // PSD3 — Strong Customer Authentication
-        // High value transfer requires step up!
+        // ABAC Check 1 — fromAccount must belong to user
+        if (!transactionService.isAccountOwner(username, fromAccount)) {
+
+            auditService.logBlocked(
+                    "UNAUTHORIZED_TRANSFER_ATTEMPT",
+                    username, "CUSTOMER", ipAddress,
+                    "User attempted to transfer from account " +
+                            fromAccount + " which does not belong to them!"
+            );
+
+            return ResponseEntity.status(403).body(Map.of(
+                    "error",   "ABAC_VIOLATION",
+                    "message", "You can only transfer from your own account!",
+                    "abac",    "Attribute: fromAccount must belong to authenticated user"
+            ));
+        }
+
+        // ABAC Check 2 — Cannot transfer to yourself
+        if (fromAccount.equals(toAccount)) {
+
+            auditService.logBlocked(
+                    "SELF_TRANSFER_BLOCKED",
+                    username, "CUSTOMER", ipAddress,
+                    "User attempted to transfer to own account"
+            );
+
+            return ResponseEntity.status(400).body(Map.of(
+                    "error",   "INVALID_TRANSFER",
+                    "message", "Cannot transfer to your own account!"
+            ));
+        }
+
+        // ABAC Check 3 — Amount must be positive
+        if (amount <= 0) {
+            return ResponseEntity.status(400).body(Map.of(
+                    "error",   "INVALID_AMOUNT",
+                    "message", "Transfer amount must be greater than zero!"
+            ));
+        }
+
+        // PSD3 SCA Check
         if (amount > 100) {
-
             String scaToken = (String) request.get("scaConfirmed");
-
             if (scaToken == null || !scaToken.equals("CONFIRMED")) {
 
                 auditService.logBlocked(
                         "HIGH_VALUE_TRANSFER_BLOCKED",
-                        username,
-                        "CUSTOMER",
-                        ipAddress,
-                        "Transfer of " + amount +
-                                " EUR exceeds limit. SCA required!"
+                        username, "CUSTOMER", ipAddress,
+                        "Transfer of " + amount + " EUR. SCA required!"
                 );
 
                 return ResponseEntity.status(403).body(Map.of(
                         "error",          "SCA_REQUIRED",
-                        "message",        "High value transfer detected!" +
-                                " Amount: " + amount + " EUR." +
-                                " Strong Customer Authentication required.",
-                        "action",         "Please include scaConfirmed: CONFIRMED" +
-                                " after OTP verification",
-                        "psd3Compliance", "PSD3 Article 97 — " +
-                                "Strong Customer Authentication"
+                        "message",        "High value transfer detected! Amount: "
+                                + amount + " EUR.",
+                        "action",         "Please include scaConfirmed: CONFIRMED",
+                        "psd3Compliance", "PSD3 Article 97 — Strong Customer Authentication"
                 ));
             }
         }
 
-        // SCA passed or amount under limit
         auditService.logSuccess(
-                "TRANSFER_INITIATED",
-                username,
-                "CUSTOMER",
-                ipAddress,
-                "Transfer of " + amount + " EUR " +
-                        (amount > 100 ? "(SCA verified)" : "(under limit)")
+                "TRANSFER_INITIATED", username, "CUSTOMER", ipAddress,
+                "Transfer of " + amount + " EUR" +
+                        " from " + fromAccount + " to " + toAccount +
+                        (amount > 100 ? " (SCA verified)" : " (under limit)")
         );
 
         Map<String, Object> result =
                 transactionService.transfer(
-                        fromAccount, toAccount,
-                        amount, username);
+                        fromAccount, toAccount, amount, username);
 
         auditService.logSuccess(
-                "TRANSFER_COMPLETED",
-                username,
-                "CUSTOMER",
-                ipAddress,
+                "TRANSFER_COMPLETED", username, "CUSTOMER", ipAddress,
                 "Transaction " + result.get("transactionId") +
                         " stored in database"
         );
@@ -105,9 +129,7 @@ public class TransactionController {
 
         auditService.logSuccess(
                 "TRANSACTION_HISTORY_VIEWED",
-                username,
-                "CUSTOMER",
-                ipAddress,
+                username, "CUSTOMER", ipAddress,
                 "Transaction history accessed from database"
         );
 

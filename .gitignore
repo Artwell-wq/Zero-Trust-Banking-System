@@ -1,0 +1,24 @@
+# --- System / IDE ---
+.idea/
+.vscode/
+*.iml
+Thumbs.db
+.DS_Store
+
+# --- Java / Maven ---
+**/target/
+**/build/
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Infrastructure (CRITICAL) ---
+# Local DB
+pgdata/
+esdata/
+logstash/data/
+
+# --- Security (ZERO-TRUST) ---
+.env
+*.pem
+*.jks
+*.key
+logstash.conf

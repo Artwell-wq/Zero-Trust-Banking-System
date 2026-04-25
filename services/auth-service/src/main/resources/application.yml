@@ -1,5 +1,6 @@
 server:
   port: 8080
+  # SSL removed for now - Gateway handles HTTPS via load balancer in production
 
 spring:
   application:
@@ -24,6 +25,9 @@ spring:
 
   cloud:
     gateway:
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: true
       default-filters:
         - TokenRelay
       routes:

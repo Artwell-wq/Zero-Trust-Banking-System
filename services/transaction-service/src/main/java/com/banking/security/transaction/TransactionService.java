@@ -21,12 +21,9 @@ public class TransactionService {
             String toAccount,
             double amount,
             String username) {
-        //      ↑ Now accepts username
-        //        to store WHO made the transfer!
 
         String transactionId = UUID.randomUUID().toString();
 
-        // Save to PostgreSQL!
         Transaction transaction = new Transaction(
                 transactionId,
                 fromAccount,
@@ -52,7 +49,6 @@ public class TransactionService {
     }
 
     public List<Map<String, Object>> getTransactions() {
-        // Get ALL transactions from PostgreSQL
         return transactionRepository.findAll()
                 .stream()
                 .map(t -> Map.<String, Object>of(
@@ -66,5 +62,19 @@ public class TransactionService {
                         "timestamp",     t.getTimestamp().toString()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    // ABAC — check if account belongs to user
+    public boolean isAccountOwner(
+            String username, String accountNumber) {
+
+        Map<String, String> accountOwners = Map.of(
+                "IBAN-PL-123456789", "testuser",
+                "IBAN-PL-987654321", "adminuser",
+                "IBAN-PL-555555555", "john.doe"
+        );
+
+        String owner = accountOwners.get(accountNumber);
+        return username.equals(owner);
     }
 }
